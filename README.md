@@ -8,12 +8,12 @@ vcftools (in $PATH)
 
 ***R packages***
 
-SNPRelate (http://www.bioconductor.org/packages/release/bioc/html/SNPRelate.html)
-png
-pheatmap
-grImport2
-ape (only needed if analyzing RAxML bootstrap values)
-phangorn (only needed if analyzing RAxML bootstrap values)
+  1) SNPRelate (http://www.bioconductor.org/packages/release/bioc/html/SNPRelate.html)
+  2) png
+  3) pheatmap
+  4) grImport2
+  5) ape (only needed if analyzing RAxML bootstrap values)
+  6) phangorn (only needed if analyzing RAxML bootstrap values)
 
 
 
