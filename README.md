@@ -1,7 +1,16 @@
 # RADclusteringOptimization
 
 **Dependencies**
-SNPRelate (R package: http://www.bioconductor.org/packages/release/bioc/html/SNPRelate.html)
+***Other software***
+vcftools (in $PATH)
+
+***R packages***
+SNPRelate (http://www.bioconductor.org/packages/release/bioc/html/SNPRelate.html)
+png
+pheatmap
+ape (only needed if analyzing RAxML bootstrap values)
+phangorn (only needed if analyzing RAxML bootstrap values)
+
 
 
 *Data generation*
