@@ -1,6 +1,7 @@
 # RADclusteringOptimization
 
 **Dependencies**
+
 ***Other software***
 vcftools (in $PATH)
 
