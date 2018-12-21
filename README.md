@@ -3,9 +3,11 @@
 **Dependencies**
 
 ***Other software***
+
 vcftools (in $PATH)
 
 ***R packages***
+
 SNPRelate (http://www.bioconductor.org/packages/release/bioc/html/SNPRelate.html)
 png
 pheatmap
