@@ -23,8 +23,7 @@ vcftools (in $PATH)
 
 3) Run vcfToMissHM.pl as follows: `perl vcfToMissHM.pl --vcflist <file> --out <outputDirectory>`
 
-This script w
-
+To run this, vcftools must be installed and accessible from the $PATH. First, vcftools will translate VCF files into 012 format.
 
 
 ```bash
