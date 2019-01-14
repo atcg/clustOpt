@@ -8,14 +8,14 @@ vcftools (in $PATH)
 
 ***R packages***
 
-  1) SNPRelate (http://www.bioconductor.org/packages/release/bioc/html/SNPRelate.html)
-  2) png
-  3) pheatmap
-  4) geosphere
-  5) grImport2
-  6) dendextend
-  7) ape (only needed if analyzing RAxML bootstrap values)
-  8) phangorn (only needed if analyzing RAxML bootstrap values)
+    1) SNPRelate (http://www.bioconductor.org/packages/release/bioc/html/SNPRelate.html)
+    2) png
+    3) pheatmap
+    4) geosphere
+    5) grImport2
+    6) dendextend
+    7) ape (only needed if analyzing RAxML bootstrap values)
+    8) phangorn (only needed if analyzing RAxML bootstrap values)
 
 
 1) Generate VCF files using different clustering thresholds
