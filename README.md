@@ -16,12 +16,15 @@ vcftools (in $PATH)
     7) ape (only needed if analyzing RAxML bootstrap values)
     8) phangorn (only needed if analyzing RAxML bootstrap values)
 
-## Steps ##
-1) Generate VCF files using different clustering thresholds
-2) Create a file that lists the path to each VCF file, one per line
-3) Run evaluateRADthresholds.pl as follows:
+## Missingness heat maps ##
+1) Generate VCF files using different clustering thresholds (using e.g. pyRAD or Stacks)
 
-perl evaluateRADthresholds.pl --vcfFile <file> --out <outputDirectory> --method <missingnessVSsimilarity|missingnessVSdistance|bootstrapSupport>
+2) Create a file that lists the path to each VCF file, one per line
+
+3) Run vcfToMissHM.pl as follows: `perl vcfToMissHM.pl --vcflist <file> --out <outputDirectory>`
+
+This script w
+
 
 
 ```bash
@@ -33,6 +36,11 @@ perl pairwiseMissingnessFrom012.pl --genotypes threshold2.012 --individuals thre
 perl pairwiseMissingnessFrom012.pl --genotypes threshold3.012 --individuals threshold3.012.indv --out threshold3.missingness
 ```
 
+
+-rw-r--r--   1 evan  staff    47B Jan 14 13:52 vcfToPCAvarExplained.pl
+-rw-r--r--   1 evan  staff    49B Jan 14 13:52 vcfToIBDslope.pl
+-rw-r--r--   1 evan  staff    47B Jan 14 13:52 missVsGenDist.pl
+-rw-r--r--   1 evan  staff    49B Jan 14 13:51 vcfToMissHM.pl
 
 
 Specifically, the script vcfToMissHM.pl can be used to generate heatmaps of pairwise missingness that are clustered by genetic similarity similar to Figure 4. The script missVsGenDist.pl can be used to calculate pairwise missingness correlations as a function of genetic distance. For population genomic studies where isolation by distance is likely to play a role in the partitioning of genetic variation, vcfToIBDslope.pl can be used to generate figures similar to Figures 5B for a collection of clustering thresholds. And vcfToPCAvarExplained.pl can be used to calculate the cumulative variance explained by the most important principal components starting from a collection of VCF files. 
