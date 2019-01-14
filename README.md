@@ -7,7 +7,6 @@
 vcftools (in $PATH)
 
 ***R packages***
-
     1) SNPRelate (http://www.bioconductor.org/packages/release/bioc/html/SNPRelate.html)
     2) png
     3) pheatmap
@@ -17,13 +16,12 @@ vcftools (in $PATH)
     7) ape (only needed if analyzing RAxML bootstrap values)
     8) phangorn (only needed if analyzing RAxML bootstrap values)
 
-
+## Steps ##
 1) Generate VCF files using different clustering thresholds
 2) Create a file that lists the path to each VCF file, one per line
 3) Run evaluateRADthresholds.pl as follows:
 
 perl evaluateRADthresholds.pl --vcfFile <file> --out <outputDirectory> --method <missingnessVSsimilarity|missingnessVSdistance|bootstrapSupport>
-
 
 
 ```bash
