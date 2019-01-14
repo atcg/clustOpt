@@ -1,4 +1,4 @@
-# RADclusteringOptimization
+# clustOpt
 
 **Dependencies**
 
@@ -11,20 +11,25 @@ vcftools (in $PATH)
   1) SNPRelate (http://www.bioconductor.org/packages/release/bioc/html/SNPRelate.html)
   2) png
   3) pheatmap
-  4) grImport2
-  5) ape (only needed if analyzing RAxML bootstrap values)
-  6) phangorn (only needed if analyzing RAxML bootstrap values)
+  4) geosphere
+  5) grImport2
+  6) dendextend
+  7) ape (only needed if analyzing RAxML bootstrap values)
+  8) phangorn (only needed if analyzing RAxML bootstrap values)
 
 
-
-*Data generation*
 1) Generate VCF files using different clustering thresholds
-2) For each VCF, generate a pairwise missingness file using vcftools and the included script pairwiseMissingnessFrom012.pl:
+2) Create a file that lists the path to each VCF file, one per line
+3) Run evaluateRADthresholds.pl as follows:
+
+perl evaluateRADthresholds.pl --vcfFile <file> --out <outputDirectory> --method <missingnessVSsimilarity|missingnessVSdistance|bootstrapSupport>
+
+
 
 ```bash
-vcftools --vcf infile.vcf --012 --out threshold1
-vcftools --vcf infile.vcf --012 --out threshold2
-vcftools --vcf infile.vcf --012 --out threshold3
+vcftools --vcf infile_threshold1.vcf --012 --out threshold1
+vcftools --vcf infile_threshold2.vcf --012 --out threshold2
+vcftools --vcf infile_threshold3.vcf --012 --out threshold3
 perl pairwiseMissingnessFrom012.pl --genotypes threshold1.012 --individuals threshold1.012.indv --out threshold1.missingness
 perl pairwiseMissingnessFrom012.pl --genotypes threshold2.012 --individuals threshold2.012.indv --out threshold2.missingness
 perl pairwiseMissingnessFrom012.pl --genotypes threshold3.012 --individuals threshold3.012.indv --out threshold3.missingness
