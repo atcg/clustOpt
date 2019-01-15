@@ -2,11 +2,9 @@
 
 **Dependencies**
 
-***Other software***
+vcftools must be installed and in the $PATH (i.e. you must be able to call vcftools from the command line by simply typing vcftools). In addition,
+the following R packages must be installed:
 
-vcftools (in $PATH)
-
-***R packages***
   1) SNPRelate (http://www.bioconductor.org/packages/release/bioc/html/SNPRelate.html)
   2) pheatmap
   3) geosphere (only needed for running vcfToIBDslope.pl)
