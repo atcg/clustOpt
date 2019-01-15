@@ -1,9 +1,9 @@
 #!/usr/bin/env Rscript
 
-library(SNPRelate)
+suppressPackageStartupMessages(library(SNPRelate))
 library(pheatmap)
 library(grImport2)
-library(dendextend)
+suppressPackageStartupMessages(library(dendextend))
 
 ### Make sure that there is exactly one flag--the VCF file input list
 args = commandArgs(trailingOnly=TRUE)
