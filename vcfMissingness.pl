@@ -57,7 +57,7 @@ foreach my $vcf (@vcfFiles) {
     system("perl resources/pairwiseMissingnessFrom012.pl --genotypes $genotypes --individuals $individuals --out $out");
 }
 print "\n\n\n";
-print "#### Finished generating pairwise missingness matrices from -12 files ####\n";
+print "#### Finished generating pairwise missingness matrices from 012 files ####\n";
 
 ###############################################################################################
 ### Take the missingness matrices and the underlying VCF and use them to make the heatmaps: ###

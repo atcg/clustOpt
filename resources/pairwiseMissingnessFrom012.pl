@@ -52,7 +52,7 @@ foreach my $sample (@samples) {
 my %missingness;
 foreach my $locus (0..$numLoci-1) {
     if ($locus % 10000 == 0) {
-        print "Processed $locus loci\n";
+        print "Processed $locus loci from $genotypesFile\n";
     }
     foreach my $sampleIndex1 (0..scalar(@samples)-1) {
         foreach my $sampleIndex2 ($sampleIndex1..scalar(@samples)-1) {
