@@ -19,7 +19,6 @@ vcftools (in $PATH)
 ## Citation ##
 Please cite the following papers and R packages when using the scripts below:
 
-```
 For vcfToMissHM.pl:
     * Xiuwen Zheng, David Levine, Jess Shen, Stephanie M. Gogarten, Cathy Laurie, Bruce S. Weir. A High-performance
   Computing Toolset for Relatedness and Principal Component Analysis of SNP Data. Bioinformatics 2012; doi:
@@ -30,7 +29,6 @@ For vcfToMissHM.pl:
   https://CRAN.R-project.org/package=pheatmap
     * Simon Potter (2018). grImport2: Importing 'SVG' Graphics. R package version 0.1-4.
   https://CRAN.R-project.org/package=grImport2
-```
 
 
 ## Missingness heat maps ##
