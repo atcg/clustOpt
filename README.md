@@ -8,13 +8,12 @@ vcftools (in $PATH)
 
 ***R packages***
   1) SNPRelate (http://www.bioconductor.org/packages/release/bioc/html/SNPRelate.html)
-  2) png
-  3) pheatmap
-  4) geosphere
-  5) grImport2
-  6) dendextend
-  7) ape (only needed if analyzing RAxML bootstrap values)
-  8) phangorn (only needed if analyzing RAxML bootstrap values)
+  2) pheatmap
+  3) geosphere (only needed for running vcfToIBDslope.pl)
+  4) grImport2
+  5) dendextend
+  6) ape (only needed if analyzing RAxML bootstrap values)
+  7) phangorn (only needed if analyzing RAxML bootstrap values)
 
 ## Citation ##
 Please cite the following papers and R packages when using the scripts below:
