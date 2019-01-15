@@ -20,14 +20,14 @@ vcftools (in $PATH)
 Please cite the following papers and R packages when using the scripts below:
 
 For vcfToMissHM.pl:
-    * Xiuwen Zheng, David Levine, Jess Shen, Stephanie M. Gogarten, Cathy Laurie, Bruce S. Weir. A High-performance
+    *Xiuwen Zheng, David Levine, Jess Shen, Stephanie M. Gogarten, Cathy Laurie, Bruce S. Weir. A High-performance
   Computing Toolset for Relatedness and Principal Component Analysis of SNP Data. Bioinformatics 2012; doi:
   10.1093/bioinformatics/bts606
-    * Tal Galili (2015). dendextend: an R package for visualizing, adjusting, and comparing trees of hierarchical
+    *Tal Galili (2015). dendextend: an R package for visualizing, adjusting, and comparing trees of hierarchical
   clustering. Bioinformatics. DOI: 10.1093/bioinformatics/btv428
-    * Raivo Kolde (2018). pheatmap: Pretty Heatmaps. R package version 1.0.10.
+    *Raivo Kolde (2018). pheatmap: Pretty Heatmaps. R package version 1.0.10.
   https://CRAN.R-project.org/package=pheatmap
-    * Simon Potter (2018). grImport2: Importing 'SVG' Graphics. R package version 0.1-4.
+    *Simon Potter (2018). grImport2: Importing 'SVG' Graphics. R package version 0.1-4.
   https://CRAN.R-project.org/package=grImport2
 
 
