@@ -63,4 +63,4 @@ print "#### Finished generating pairwise missingness matrices from -12 files ###
 ### Take the missingness matrices and the underlying VCF and use them to make the heatmaps: ###
 ###############################################################################################
 
-system("Rscript missingnessHeatMaps.R $vcflist")
+system("Rscript resources/missingnessHeatMaps.R $vcflist")
