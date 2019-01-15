@@ -17,7 +17,7 @@ set.seed(randomSeed)
 paste("Random seed for snpgdsHCluster = ", randomSeed, sep="")
 
 ### Core functions
-makeMatrix <- function(vcfFilename) {
+makeMatrix <- function(vcfFilename, printStats = 0) {
     intermediateFileName <- paste(gsub(".vcf","", vcfFilename, fixed=T), '_missHM012.missingness', sep="")
     missInter <- read.csv(intermediateFileName, sep="\t", header=T)
 
@@ -26,7 +26,13 @@ makeMatrix <- function(vcfFilename) {
     colnames(interMatrix) <- unique(missInter$Sample1)
     rownames(interMatrix) <- unique(missInter$Sample2)
     interMatrix[upper.tri(interMatrix, diag=F)] <- t(interMatrix)[upper.tri(interMatrix, diag=F)]
-
+    
+    if (printStats == 1) {
+        minMissingness <- min(interMatrix, na.rm=T)
+        maxMissingness <- max(interMatrix, na.rm=T)
+        cat(paste("Minimum pairwise missingness for ", vcfFilename, ": ", minMissingness, sep=""), "\n")
+        cat(paste("Maximum pairwise missingness for ", vcfFilename, ": ", maxMissingness, sep=""), "\n")
+    }
     return(interMatrix)
 }
 
@@ -60,7 +66,11 @@ makeVectorHeatmap <- function(missingnessMatrix, dendrogramz, name) {
     grid.picture(heatmapSVG, x = 5.4, y=4.85, hjust="centre", vjust="centre", width=6.66, height=6, default.units="in")
     grid.picture(dendroSVG, x=2.11, y=4.85, height=6.26, width=.75, default.units="in", distort=T)
     grid.picture(dendroBsvg, x=5.11, y=7.84, height=.75, width=6.25, default.units="in", distort=T)
+    
+    text(x=5.11, y=9, cex=2, labels = name)
     dev.off()
+    
+    
 
     # Delete intermediate files
     unlink(x = c(heatmapFile, dendro1, dendro2))
@@ -75,7 +85,6 @@ vcfFiles <- scan(args[1], what = character())
 ### Read in the first matrix,then rbind all subsequent matrices to the first matrix. 
 ### Then we'll get the breaks from superMatrix
 firstFileName <- paste(gsub(".vcf","", vcfFiles[1], fixed=T), '_missHM012.missingness', sep="")
-paste("First file name: ", firstFileName, sep="")
 missFirst <- read.csv(firstFileName, sep="\t", header=T)
 
 superMatrix <- matrix(nrow=length(unique(missFirst$Sample1)), ncol=length(unique(missFirst$Sample1)))
@@ -86,11 +95,11 @@ superMatrix[upper.tri(superMatrix, diag=F)] <- t(superMatrix)[upper.tri(superMat
 
 if (length(vcfFiles) > 1) {
     for (i in 2:length(vcfFiles)) {
-        matrixForBinding <- makeMatrix(vcfFiles[i])
+        matrixForBinding <- makeMatrix(vcfFiles[i], printStats = 0)
 
         # Make sure that the full and intermediate matrices line up
-        if (!all.equal(rownames(matrixForBinding), rownames(superMatrix))) {
-            stop("Row names don't match for ", args[1], " and ", args[i], ": Exiting now", call.=TRUE)
+        if (!all.equal(colnames(matrixForBinding), colnames(superMatrix))) {
+            stop("Col names don't match for ", args[1], " and ", args[i], ": Exiting now", call.=TRUE)
         }
 
         # Append the intermediate matrix to the full matrix
@@ -100,6 +109,12 @@ if (length(vcfFiles) > 1) {
     # Here we have only a single VCF file, which is perfectly fine. We actually don't 
     # need to do anything in this case.
 }
+
+minMissingness <- min(superMatrix, na.rm=T)
+maxMissingness <- max(superMatrix, na.rm=T)
+paste("Minimum pairwise missingness across all VCFs (lower legend boundary): ", minMissingness, sep="")
+paste("Maximum pairwise missingness across all VCFs (upper legend boundary): ", maxMissingness, sep="")
+
 
 ### Infer the quantile breaks from superMatrix:
 quantile_breaks <- function(xs, n = 100) {
@@ -120,7 +135,9 @@ for (i in 1:length(vcfFiles)) {
     ibsInter <- snpgdsHCluster(snpgdsIBS(gdsInter, num.thread=2))
 
     # First make the matrix
-    missingMatrix <- makeMatrix(vcfFiles[i])
-    heatmapFile = paste(gsub(".vcf","", vcfFiles[i], fixed=T), '.heatmap.svg', sep="")
+    missingMatrix <- makeMatrix(vcfFiles[i], printStats = 1)
+    heatmapFile = paste(gsub(".vcf","", vcfFiles[i], fixed=T), '.heatmap', sep="")
     makeVectorHeatmap(missingMatrix, ibsInter$dendrogram, heatmapFile)
+    snpgdsClose(gdsInter)
+    file.remove(gdsOut)
 }
