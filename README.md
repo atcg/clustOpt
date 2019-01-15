@@ -42,7 +42,7 @@ Specifically, the script vcfToMissHM.pl can be used to generate heatmaps of pair
 ## Isolation by distance slopes ##
 To calculate the isolation by distance slopes for different clustering thresholds, use the following command:
 
-`perl clustOpt/vcfToIBDslope.pl --vcflist <vcfListFile> --latlong <latLongFile>`
+`Rscript ibdSlope.R  <vcfListFile> <latLongFile>
 
 Here, vcfListFile is a file with the paths to all VCF files you want to analyze (one per line), and latLongFile is a tab-delimited file with the following format:
 ```
