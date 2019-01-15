@@ -18,7 +18,7 @@ paste("Random seed for snpgdsHCluster = ", randomSeed, sep="")
 
 ### Core functions
 makeMatrix <- function(vcfFilename) {
-    intermediateFileName <- paste(regmatches(vcfFilename, regexpr("\.vcf", vcfFilename), invert=T), ".missingness", sep="")
+    intermediateFileName <- paste(gsub(".vcf","", vcfFilename, fixed=T), '_missHM012.missingness', sep="")
     missInter <- read.csv(intermediateFileName, sep="\t", header=T)
 
     interMatrix <- matrix(nrow=length(unique(missInter$Sample1)), ncol=length(unique(missInter$Sample1)))
@@ -54,7 +54,7 @@ makeVectorHeatmap <- function(missingnessMatrix, dendrogramz, name) {
     dendroSVG <- readPicture(file = dendro1)
     dendroBsvg <- readPicture(file = dendro2)
     heatmapSVG <- readPicture(heatmapFile)
-    outputname <- paste("figures/", name, ".pdf", sep="")
+    outputname <- paste(name, ".pdf", sep="")
     pdf(outputname, width=10,height=10)
     plot(1, bty="n", type="n", xlab="", ylab="", xlim=c(0, 10), ylim=c(0, 9), xaxt="n", yaxt="n")
     grid.picture(heatmapSVG, x = 5.4, y=4.85, hjust="centre", vjust="centre", width=6.66, height=6, default.units="in")
@@ -74,7 +74,8 @@ vcfFiles <- scan(args[1], what = character())
 ### they all use the same informative color scale for missingness. 
 ### Read in the first matrix,then rbind all subsequent matrices to the first matrix. 
 ### Then we'll get the breaks from superMatrix
-firstFileName <- paste(regmatches(vcfFiles[1], regexpr("\.vcf", vcfFiles[1]), invert=T), ".missingness", sep="")
+firstFileName <- paste(gsub(".vcf","", vcfFiles[1], fixed=T), '_missHM012.missingness', sep="")
+paste("First file name: ", firstFileName, sep="")
 missFirst <- read.csv(firstFileName, sep="\t", header=T)
 
 superMatrix <- matrix(nrow=length(unique(missFirst$Sample1)), ncol=length(unique(missFirst$Sample1)))
@@ -88,7 +89,7 @@ if (length(vcfFiles) > 1) {
         matrixForBinding <- makeMatrix(vcfFiles[i])
 
         # Make sure that the full and intermediate matrices line up
-        if (!all.equal(rownames(matrixForBinding), rownames(superMatrix)) {
+        if (!all.equal(rownames(matrixForBinding), rownames(superMatrix))) {
             stop("Row names don't match for ", args[1], " and ", args[i], ": Exiting now", call.=TRUE)
         }
 
@@ -110,14 +111,16 @@ mat_breaks <- quantile_breaks(superMatrix, n = 100)
 ### Now make the heat maps for each threshold 
 for (i in 1:length(vcfFiles)) {
     # Make and load the GDS file:
-    gdsOut <- paste(regmatches(vcfFiles[i], regexpr("\.vcf", vcfFiles[i]), invert=T), ".gds", sep="")
+    gdsOut <- paste(gsub(".vcf","", vcfFiles[i], fixed=T), '_missHM012.gds', sep="")
+
     snpgdsVCF2GDS(vcfFiles[i], gdsOut)
+
     gdsInter <- snpgdsOpen(gdsOut)
     # Compute the dendrogram:
     ibsInter <- snpgdsHCluster(snpgdsIBS(gdsInter, num.thread=2))
 
     # First make the matrix
     missingMatrix <- makeMatrix(vcfFiles[i])
-    heatmapFile = paste(regmatches(vcfFiles[i], regexpr("\.vcf", vcfFiles[i]), invert=T), ".heatmap.svg", sep="")
+    heatmapFile = paste(gsub(".vcf","", vcfFiles[i], fixed=T), '.heatmap.svg', sep="")
     makeVectorHeatmap(missingMatrix, ibsInter$dendrogram, heatmapFile)
 }
