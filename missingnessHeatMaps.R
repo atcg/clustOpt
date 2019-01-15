@@ -123,6 +123,12 @@ quantile_breaks <- function(xs, n = 100) {
 }
 mat_breaks <- quantile_breaks(superMatrix, n = 100)
 
+
+for (i in 1:length(vcfFiles)) {
+    # Just print out the minimum and maximum missingness values here
+    missingMatrix <- makeMatrix(vcfFiles[i], printStats = 1)
+}
+
 ### Now make the heat maps for each threshold 
 for (i in 1:length(vcfFiles)) {
     # Make and load the GDS file:
@@ -134,9 +140,15 @@ for (i in 1:length(vcfFiles)) {
     # Compute the dendrogram:
     ibsInter <- snpgdsHCluster(snpgdsIBS(gdsInter, num.thread=2))
 
-    # First make the matrix
-    missingMatrix <- makeMatrix(vcfFiles[i], printStats = 1)
+    # Make the matrix
+    missingMatrix <- makeMatrix(vcfFiles[i], printStats = 0)
     heatmapFile = paste(gsub(".vcf","", vcfFiles[i], fixed=T), '.heatmap', sep="")
+    
+    # Print out the correlation coefficient of missingness as a function of relatedness:
+    missGenCorrelation <- cor(c(missingMatrix[lower.tri(missingMatrix, diag=F)]), c(ibsInter$dist[lower.tri(ibsInter$dist, diag = F)]), method="pearson")
+    cat("Correlation (PCC) between missingness and genetic similarity for ", vcfFiles[i], ": ", missGenCorrelation, "\n", sep="")
+    
+    # Plot the heatmaps
     makeVectorHeatmap(missingMatrix, ibsInter$dendrogram, heatmapFile)
     snpgdsClose(gdsInter)
     file.remove(gdsOut)
