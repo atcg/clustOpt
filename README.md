@@ -19,6 +19,8 @@ To calculate correlations between missingness and relatedness and generate missi
 
 `perl vcfMissingness.pl --vcflist <vcfListFile>`
 
+Here, vcfListFile is a file with the paths to all VCF files you want to analyze (one per line).
+
 This script does several things, including:
 
   1) Generates 012 format files from each of the VCF files using vcftools
@@ -31,7 +33,23 @@ This script does several things, including:
 
 Specifically, the script vcfToMissHM.pl can be used to generate heatmaps of pairwise missingness that are clustered by genetic similarity similar to Figure 4. The script missVsGenDist.pl can be used to calculate pairwise missingness correlations as a function of genetic distance. For population genomic studies where isolation by distance is likely to play a role in the partitioning of genetic variation, vcfToIBDslope.pl can be used to generate figures similar to Figures 5B for a collection of clustering thresholds. And vcfToPCAvarExplained.pl can be used to calculate the cumulative variance explained by the most important principal components starting from a collection of VCF files. 
 
+## Isolation by distance slopes ##
+To calculate the isolation by distance slopes for different clustering thresholds, use the following command:
 
+`perl vcfToIBDslope.pl --vcflist <vcfListFile> --latlong <latLongFile>`
+
+Here, vcfListFile is a file with the paths to all VCF files you want to analyze (one per line), and latLongFile is a tab-delimited file with the following format:
+```
+Sample  Lat Long
+samp1   34.2134 -122.5731
+samp2   33.4421 -121.9874
+...
+sampN   36.1112 -122.0012
+```
+
+The names in the Sample column must match the names in the VCF file exactly (they do not need to be in the same order). Lat/Longs must be in decimal degrees.
+
+The IBD slopes are output to STDOUT, and can then be gathered and plotted in e.g. R.
 
 
 ## Citation ##

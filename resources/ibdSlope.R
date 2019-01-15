@@ -1,9 +1,14 @@
 library(geosphere)
 
+### Make sure that there is exactly one flag--the VCF file input list
+args = commandArgs(trailingOnly=TRUE)
+if (length(args)!=2) {
+  stop("Exactly two arguments must be supplied (<vcf file> and <latLongFile>).n", call.=FALSE)
+}
 
 
 # Set up the geographic distance matrix:
-latLongFile <- read.csv("latLongFile.tsv", sep="\t", header=T)
+latLongFile <- read.csv(args[2], sep="\t", header=T)
 geoDistMatrix <- matrix(nrow=length(latLongFile$Sample), ncol=length(latLongFile$Sample))
 rownames(geoDistMatrix) <- latLongFile$Sample
 colnames(geoDistMatrix) <- latLongFile$Sample
