@@ -19,5 +19,6 @@ for (i in 1:length(vcfFiles)) {
     pcaz <- snpgdsPCA(genofile, num.thread=2, verbose=F)
     varExplained <- sum(pcaz$varprop[1:args[2]])
     cat("Variance explained by first ", args[2], " PCs for ", vcfFiles[i], ": ", varExplained, "\n", sep="")
+    snpgdsClose(genofile)
     file.remove(gdsOut)
 }

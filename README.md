@@ -1,6 +1,6 @@
 # clustOpt
 
-**Dependencies**
+## Dependencies ##
 
 vcftools must be installed and in the $PATH (i.e. you must be able to call vcftools from the command line by simply typing vcftools). In addition,
 the following R packages must be installed:
@@ -13,11 +13,18 @@ the following R packages must be installed:
   6) ape (only needed if analyzing RAxML bootstrap values)
   7) phangorn (only needed if analyzing RAxML bootstrap values)
 
+## Installation ##
+After the dependencies listed above are installed, all that is needed is to download the scripts in the gitHub repository:
+
+`git clone https://github.com/atcg/clustOpt.git`
+
+This will download everything to a folder called clustOpt/. Scripts can then be run from anywhere by giving the full path to clustOpt/.
+
 
 ## Missingness heat maps ##
 To calculate correlations between missingness and relatedness and generate missingness heatmaps that are clustered by genetic relatedness, use the following command:
 
-`perl vcfMissingness.pl --vcflist <vcfListFile>`
+`perl clustOpt/vcfMissingness.pl --vcflist <vcfListFile>`
 
 Here, vcfListFile is a file with the paths to all VCF files you want to analyze (one per line).
 
@@ -30,13 +37,12 @@ This script does several things, including:
   5) Calculates SNP identity by state and clusters samples based on relatedness
   6) Draws heatmaps (one PDF per input VCF) of samples clustered by relatedness where the values indicate pairwise genotype missingness among samples
 
-
 Specifically, the script vcfToMissHM.pl can be used to generate heatmaps of pairwise missingness that are clustered by genetic similarity similar to Figure 4. The script missVsGenDist.pl can be used to calculate pairwise missingness correlations as a function of genetic distance. For population genomic studies where isolation by distance is likely to play a role in the partitioning of genetic variation, vcfToIBDslope.pl can be used to generate figures similar to Figures 5B for a collection of clustering thresholds. And vcfToPCAvarExplained.pl can be used to calculate the cumulative variance explained by the most important principal components starting from a collection of VCF files. 
 
 ## Isolation by distance slopes ##
 To calculate the isolation by distance slopes for different clustering thresholds, use the following command:
 
-`perl vcfToIBDslope.pl --vcflist <vcfListFile> --latlong <latLongFile>`
+`perl clustOpt/vcfToIBDslope.pl --vcflist <vcfListFile> --latlong <latLongFile>`
 
 Here, vcfListFile is a file with the paths to all VCF files you want to analyze (one per line), and latLongFile is a tab-delimited file with the following format:
 ```
@@ -53,7 +59,7 @@ The IBD slopes are output to STDOUT, and can then be gathered and plotted in e.g
 
 ## Cumulative variance explained by first N PCs ##
 To calculate the summed variance explained by the first N principal components for a group of VCF files, use the following command:
-`Rscript vcfToPCAvarExplained.R <vcfListFile> N`
+`Rscript clustOpt/vcfToPCAvarExplained.R <vcfListFile> N`
 
 Here, vcfListFile is a file with the paths to all VCF files you want to analyze (one per line). N is an integer value that denotes how many PCs to sum
 over (for instance, if N=4 then this script will return the cumulative variance explained by PCs 1, 2, 3, and 4). The summed values are printed to STDOUT
