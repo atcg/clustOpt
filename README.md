@@ -51,6 +51,14 @@ The names in the Sample column must match the names in the VCF file exactly (the
 
 The IBD slopes are output to STDOUT, and can then be gathered and plotted in e.g. R.
 
+## Cumulative variance explained by first N PCs ##
+To calculate the summed variance explained by the first N principal components for a group of VCF files, use the following command:
+`Rscript vcfToPCAvarExplained.R <vcfListFile> N`
+
+Here, vcfListFile is a file with the paths to all VCF files you want to analyze (one per line). N is an integer value that denotes how many PCs to sum
+over (for instance, if N=4 then this script will return the cumulative variance explained by PCs 1, 2, 3, and 4). The summed values are printed to STDOUT
+and can be plotted using e.g. R.
+
 
 ## Citation ##
 Please cite the following papers and R packages when using the scripts below:
@@ -64,4 +72,10 @@ For vcfMissingness.pl:
 
 For vcfToIBDslope.pl:
   * Robert J. Hijmans (2017). geosphere: Spherical Trigonometry. R package version 1.5-7. https://CRAN.R-project.org/package=geosphere
-  * 
+
+For vcfToPCAvarExplained.R
+  * Xiuwen Zheng, David Levine, Jess Shen, Stephanie M. Gogarten, Cathy Laurie, Bruce S. Weir. A High-performance Computing Toolset for Relatedness and Principal Component Analysis of SNP Data. Bioinformatics 2012; doi:
+10.1093/bioinformatics/bts606
+  * Mastretta-Yanes, A., Arrigo, N., Alvarez, N., Jorgensen, T. H., Piñero, D., & Emerson, B. C. (2015). Restriction site-associated DNA sequencing, genotyping error estimation and de novo assembly optimization for population 
+genetic inference. Molecular Ecology Resources, 15(1), 28–41. doi:10.1111/1755-0998.12291
+
