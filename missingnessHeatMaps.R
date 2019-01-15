@@ -67,7 +67,7 @@ makeVectorHeatmap <- function(missingnessMatrix, dendrogramz, name) {
     grid.picture(dendroSVG, x=2.11, y=4.85, height=6.26, width=.75, default.units="in", distort=T)
     grid.picture(dendroBsvg, x=5.11, y=7.84, height=.75, width=6.25, default.units="in", distort=T)
     
-    text(x=5.11, y=9, cex=2, labels = name)
+    text(x=5.11, y=9, cex=1, labels = name)
     dev.off()
     
     
@@ -117,11 +117,11 @@ paste("Maximum pairwise missingness across all VCFs (upper legend boundary): ", 
 
 
 ### Infer the quantile breaks from superMatrix:
-quantile_breaks <- function(xs, n = 100) {
+quantile_breaks <- function(xs, n = 101) {
     breaks <- quantile(xs, probs = seq(0, 1, length.out = n), na.rm = T)
     breaks[!duplicated(breaks)]
 }
-mat_breaks <- quantile_breaks(superMatrix, n = 100)
+mat_breaks <- quantile_breaks(superMatrix, n = 101)
 
 
 for (i in 1:length(vcfFiles)) {

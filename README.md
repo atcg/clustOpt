@@ -37,7 +37,7 @@ Specifically, the script vcfToMissHM.pl can be used to generate heatmaps of pair
 ## Citation ##
 Please cite the following papers and R packages when using the scripts below:
 
-For vcfToMissHM.pl:
+For vcfMissingness.pl:
   * Xiuwen Zheng, David Levine, Jess Shen, Stephanie M. Gogarten, Cathy Laurie, Bruce S. Weir. A High-performance Computing Toolset for Relatedness and Principal Component Analysis of SNP Data. Bioinformatics 2012; doi:
 10.1093/bioinformatics/bts606
   * Tal Galili (2015). dendextend: an R package for visualizing, adjusting, and comparing trees of hierarchical clustering. Bioinformatics. doi: 10.1093/bioinformatics/btv428
