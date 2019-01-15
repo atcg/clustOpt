@@ -7,7 +7,7 @@ use Getopt::Long;
 my $vcflist;
 my $help;
 
-GetOptions  ("vcflist=i"   => \$vcflist,
+GetOptions  ("vcflist=s"   => \$vcflist,
              "help|man"    => \$help) || die "Couldn't get options with GetOpt::Long: $!\n";
 
 if (!$vcflist or $help) {
@@ -15,7 +15,7 @@ if (!$vcflist or $help) {
     --vcflist is a file that contains one VCF filename per line, each one corresponding to a different clustering threshold\n";
 }
 
-open(my $vcfFilesFH, "<", $vcflist);\
+open(my $vcfFilesFH, "<", $vcflist);
 # Get the VCF filenames from the input file
 my @vcfFiles;
 while (my $line = <$vcfFilesFH>) {
@@ -38,7 +38,7 @@ foreach my $vcf (@vcfFiles) {
     } elsif (-e $outPrefix . '.012.pos') {
         die "$outPrefix.012.pos already exists. Exiting now to prevent overwriting files\n";
     }
-    system("vcftools --vcf $line --012 --out $outPrefix");
+    system("vcftools --vcf $vcf --012 --out $outPrefix");
 }
 print "\n\n\n";
 print "#### Finished translating VCF files into 012 format ####\n";
@@ -63,4 +63,4 @@ print "#### Finished generating pairwise missingness matrices from -12 files ###
 ### Take the missingness matrices and the underlying VCF and use them to make the heatmaps: ###
 ###############################################################################################
 
-Rscript missingnessHeatMaps.R $vcflist
+system("Rscript missingnessHeatMaps.R $vcflist")
