@@ -1,7 +1,7 @@
 suppressPackageStartupMessages(library(geosphere))
 suppressPackageStartupMessages(library(SNPRelate))
 
-### Make sure that there is exactly one flag--the VCF file input list
+### Make sure that there are exactly two flags--the VCF file input list [1] and the latlong file [2]
 args = commandArgs(trailingOnly=TRUE)
 if (length(args)!=2) {
   stop("Exactly two arguments must be supplied (<vcf file> and <latLongFile>).n", call.=FALSE)
