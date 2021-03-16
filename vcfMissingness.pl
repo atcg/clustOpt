@@ -3,9 +3,11 @@
 use strict;
 use warnings;
 use Getopt::Long;
+use File::Basename;
 
 my $vcflist;
 my $help;
+my $clustOptDir = dirname($0);
 
 GetOptions  ("vcflist=s"   => \$vcflist,
              "help|man"    => \$help) || die "Couldn't get options with GetOpt::Long: $!\n";
@@ -54,7 +56,7 @@ foreach my $vcf (@vcfFiles) {
     my $genotypes = $inPrefix . ".012";
     my $individuals = $inPrefix . ".012.indv";
     my $out = $inPrefix . ".missingness";
-    system("perl resources/pairwiseMissingnessFrom012.pl --genotypes $genotypes --individuals $individuals --out $out");
+    system("perl $clustOptDir/resources/pairwiseMissingnessFrom012.pl --genotypes $genotypes --individuals $individuals --out $out");
 }
 print "\n\n\n";
 print "#### Finished generating pairwise missingness matrices from 012 files ####\n";
@@ -63,4 +65,4 @@ print "#### Finished generating pairwise missingness matrices from 012 files ###
 ### Take the missingness matrices and the underlying VCF and use them to make the heatmaps: ###
 ###############################################################################################
 
-system("Rscript resources/missingnessHeatMaps.R $vcflist")
+system("Rscript $clustOptDir/resources/missingnessHeatMaps.R $vcflist")
